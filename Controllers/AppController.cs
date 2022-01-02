@@ -15,6 +15,7 @@ namespace DutchTreat.Controllers
         [HttpGet("contact")]
         public IActionResult Contact()
         {
+            throw new ExecutionEngineException();
             return View();
         }
 

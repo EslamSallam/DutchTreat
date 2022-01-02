@@ -1,0 +1,62 @@
+﻿@{ 
+    ViewBag.Title = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Dutch Treat: @ViewBag.Title</title>
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+
+        <h1>@ViewBag.Title</h1>
+        <button id="buyButton">Buy</button>
+        <div id="theForm">
+            <form>
+                <label class="product-props">Your Name: </label>
+                <br />
+                <input />
+                <label class="product-props">Email: </label>
+                <br />
+                <input type="email" />
+                <label class="product-props">Subject: </label>
+                <br />
+                <input type="text" />
+                <label class="product-props">Message: </label>
+                <br />
+                <input />
+                <textarea rows="4"></textarea>
+                <br />
+                <input type="submit" value="Send Message" />
+            </form>
+        </div>
+
+        <div>
+            <form>
+                <div class="row">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="row">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" />
+                </div>
+                <div class="row">
+                    <label class="form-label col-2">Remmember Me?</label>
+                    <input class="form-check col-1" type="checkbox" />
+                </div>
+                <div>
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/js/index.js"></script>
+</body>
+</html>

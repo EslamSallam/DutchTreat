@@ -1,5 +1,5 @@
 ﻿{
   "ConnectionStrings": {
-    "DutchContextDb": "Server=DESKTOP-HETQ1V4\\SQLEXPRESS;Database=DutchTreatDB;Trusted_Connection=True;Connect Timeout=30;MultipleActiveResultSets=True;"
+    "DutchContextDb": "Server=.;Database=DutchTreatDB;Trusted_Connection=True;Connect Timeout=30;MultipleActiveResultSets=True;"
   }
 }

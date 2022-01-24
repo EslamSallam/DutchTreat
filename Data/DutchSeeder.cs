@@ -45,6 +45,9 @@ namespace DutchTreat.Data
                     }
                 };
 
+                _ctx.orders.Add(order);
+                _ctx.SaveChanges();
+
             }
         }
     }

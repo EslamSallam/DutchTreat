@@ -16,7 +16,7 @@ namespace DutchTreat.Data.Repos
         }
         public List<Product> List()
         {
-           return _ctx.products.ToList();
+           return _ctx.products.OrderBy(p => p.Title).ToList();
         }
 
         public List<Product> ListFilter(Func<Product, bool> lambda)

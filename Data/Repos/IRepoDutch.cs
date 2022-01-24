@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repos
 {
-    interface IRepoDutch<T>
+    public interface IRepoDutch<T>
     {
         public List<T> List();
 

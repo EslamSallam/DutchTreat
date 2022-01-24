@@ -9,22 +9,24 @@ using MimeKit;
 using DutchTreat.Services;
 using Microsoft.EntityFrameworkCore;
 using DutchTreat.Data;
+using DutchTreat.Data.Entities;
+using DutchTreat.Data.Repos;
 
 namespace DutchTreat.Controllers
 {
     public class AppController : Controller
     {
         private readonly IMailService _mailService;
-        private readonly DutchContext _context;
+        private readonly IRepoDutch<Product> repo;
 
-        public AppController(IMailService mailService,DutchContext context)
+        public AppController(IMailService mailService,IRepoDutch<Product> _repo)
         {
             _mailService = mailService;
-            _context = context;
+            repo = _repo;
         }
         public IActionResult Index()
         {
-            var prod = _context.products.ToList();
+            var prod = this.repo.List();
             return View();
         }
 
@@ -55,7 +57,7 @@ namespace DutchTreat.Controllers
         public IActionResult Shop()
         {
             //var results = _context.products.OrderBy(p => p.Category).ToList();
-            var results = from p in _context.products orderby p.Category select p;
+            var results = this.repo.List();
             return View(results);
         }
         public IActionResult About()

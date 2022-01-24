@@ -1,4 +1,6 @@
 using DutchTreat.Data;
+using DutchTreat.Data.Entities;
+using DutchTreat.Data.Repos;
 using DutchTreat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +28,10 @@ namespace DutchTreat
 
             services.AddTransient<DutchSeeder>();
             services.AddTransient<IMailService, NullMailService>();
+
+            services.AddScoped<IRepoDutch<Order>, OrderRepo>();
+            services.AddScoped<IRepoDutch<Product>, ProductRepo>();
+
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
 

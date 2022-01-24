@@ -24,6 +24,7 @@ namespace DutchTreat.Controllers
         }
         public IActionResult Index()
         {
+            var prod = _context.products.ToList();
             return View();
         }
 

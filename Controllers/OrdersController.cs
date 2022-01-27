@@ -1,5 +1,6 @@
 ﻿using DutchTreat.Data.Entities;
 using DutchTreat.Data.Repos;
+using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -55,6 +56,49 @@ namespace DutchTreat.Controllers
                 _logger.LogError($"Failed to get Orders {ex}");
                 return BadRequest($"Failed to get orders");
             }
+        }
+
+        [HttpPost]
+        public ActionResult Post([FromBody]OrdersViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var newOrder = new Order()
+                    {
+                        OrderNumber = model.orderNumber,
+                        OrderDate = model.orderDate
+                    };
+                    if (newOrder.OrderDate == DateTime.MinValue)
+                    {
+                        newOrder.OrderDate = DateTime.Now;
+                    }
+                    _OrdersRepo.AddEntity(newOrder);
+
+                    if (_OrdersRepo.SaveAll())
+                    {
+                        var vm = new OrdersViewModel()
+                        {
+                            orderId = newOrder.Id,
+                            orderDate = newOrder.OrderDate,
+                            orderNumber = newOrder.OrderNumber
+                        };
+                        return Created($"Created the order api/Orders/{vm.orderId}", vm);
+                    }
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to save a new order: {ex}");
+            }
+            return BadRequest($"Failed to create the order api/Orders/{model.orderId}");
+
         }
 
     }

@@ -15,6 +15,12 @@ namespace DutchTreat.Data.Repos
         {
             _ctx = ctx;
         }
+
+        public void AddEntity(Order model)
+        {
+            _ctx.orders.Add(model);
+        }
+
         public Order GetElementById(int id)
         {
             return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).Where(o => o.Id == id).FirstOrDefault();
@@ -28,6 +34,11 @@ namespace DutchTreat.Data.Repos
         public List<Order> ListFilter(Func<Order, bool> lambda)
         {
             return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).Where(lambda).ToList();
+        }
+
+        public bool SaveAll()
+        {
+          return _ctx.SaveChanges() > 0;
         }
     }
 }

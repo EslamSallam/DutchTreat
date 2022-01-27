@@ -10,5 +10,6 @@ namespace DutchTreat.Data.Repos
         public List<T> List();
 
         public List<T> ListFilter(Func<T, bool> lambda);
+        public T GetElementById(int id);
     }
 }

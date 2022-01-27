@@ -14,6 +14,12 @@ namespace DutchTreat.Data.Repos
         {
             _ctx = ctx;
         }
+
+        public Product GetElementById(int id)
+        {
+            return _ctx.products.Where(p => p.Id == id).FirstOrDefault();
+        }
+
         public List<Product> List()
         {
            return _ctx.products.OrderBy(p => p.Title).ToList();

@@ -1,4 +1,5 @@
 ﻿using DutchTreat.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,19 @@ namespace DutchTreat.Data.Repos
         {
             _ctx = ctx;
         }
+        public Order GetElementById(int id)
+        {
+            return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).Where(o => o.Id == id).FirstOrDefault();
+        }
+
         public List<Order> List()
         {
-           return _ctx.orders.ToList();
+           return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).ToList();
         }
 
         public List<Order> ListFilter(Func<Order, bool> lambda)
         {
-            return _ctx.orders.Where(lambda).ToList();
+            return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).Where(lambda).ToList();
         }
     }
 }

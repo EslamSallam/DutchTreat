@@ -14,11 +14,11 @@ namespace DutchTreat.Controllers
     [Route("api/Orders/{OrderId}/Items")]
     public class OrderItemsController : Controller
     {
-        private readonly IRepoDutch<Order> _ordersRepo;
+        private readonly IRepoDutchOrders _ordersRepo;
         private readonly ILogger<OrderItemsController> _logger;
         private readonly IMapper _mapper;
 
-        public OrderItemsController(IRepoDutch<Order> OrdersRepo,ILogger<OrderItemsController> logger,IMapper mapper)
+        public OrderItemsController(IRepoDutchOrders OrdersRepo,ILogger<OrderItemsController> logger,IMapper mapper)
         {
             _ordersRepo = OrdersRepo;
             _logger = logger;

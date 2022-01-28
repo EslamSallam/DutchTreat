@@ -1,4 +1,5 @@
-﻿using DutchTreat.Data.Entities;
+﻿using AutoMapper;
+using DutchTreat.Data.Entities;
 using DutchTreat.Data.Repos;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace DutchTreat.Controllers
     {
         private readonly IRepoDutch<Order> _OrdersRepo;
         private readonly ILogger<OrdersController> _logger;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IRepoDutch<Order> OrdersRepo,ILogger<OrdersController> logger)
+        public OrdersController(IRepoDutch<Order> OrdersRepo,ILogger<OrdersController> logger,IMapper mapper)
         {
             _OrdersRepo = OrdersRepo;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -27,7 +30,8 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                return Ok(_OrdersRepo.List());
+                var result = _OrdersRepo.List();
+                return Ok(_mapper.Map<IEnumerable<OrdersViewModel>>(result));
             }
             catch (Exception ex)
             {
@@ -65,11 +69,7 @@ namespace DutchTreat.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var newOrder = new Order()
-                    {
-                        OrderNumber = model.orderNumber,
-                        OrderDate = model.orderDate
-                    };
+                    var newOrder = _mapper.Map<Order>(model);
                     if (newOrder.OrderDate == DateTime.MinValue)
                     {
                         newOrder.OrderDate = DateTime.Now;
@@ -78,12 +78,7 @@ namespace DutchTreat.Controllers
 
                     if (_OrdersRepo.SaveAll())
                     {
-                        var vm = new OrdersViewModel()
-                        {
-                            orderId = newOrder.Id,
-                            orderDate = newOrder.OrderDate,
-                            orderNumber = newOrder.OrderNumber
-                        };
+                        var vm = _mapper.Map<OrdersViewModel>(newOrder);
                         return Created($"Created the order api/Orders/{vm.orderId}", vm);
                     }
                 }

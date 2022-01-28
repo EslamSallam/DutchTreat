@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DutchTreat
@@ -31,6 +32,7 @@ namespace DutchTreat
 
             services.AddScoped<IRepoDutch<Order>, OrderRepo>();
             services.AddScoped<IRepoDutch<Product>, ProductRepo>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation()

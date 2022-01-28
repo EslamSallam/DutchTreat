@@ -13,5 +13,7 @@ namespace DutchTreat.ViewModels
         [Required]
         [MinLength(4)]
         public string orderNumber { set; get; }
+
+        public ICollection<OrderItemsViewModel> Items { get; set; }
     }
 }

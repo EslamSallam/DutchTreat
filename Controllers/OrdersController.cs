@@ -48,7 +48,7 @@ namespace DutchTreat.Controllers
                 var order = _OrdersRepo.GetElementById(id);
                 if (order != null)
                 {
-                    return Ok(order);
+                    return Ok(_mapper.Map<OrdersViewModel>(order));
                 }
                 else
                 {

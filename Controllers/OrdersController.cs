@@ -14,11 +14,11 @@ namespace DutchTreat.Controllers
     [Route("api/[Controller]")]
     public class OrdersController : Controller
     {
-        private readonly IRepoDutch<Order> _OrdersRepo;
+        private readonly IRepoDutchOrders _OrdersRepo;
         private readonly ILogger<OrdersController> _logger;
         private readonly IMapper _mapper;
 
-        public OrdersController(IRepoDutch<Order> OrdersRepo,ILogger<OrdersController> logger,IMapper mapper)
+        public OrdersController(IRepoDutchOrders OrdersRepo,ILogger<OrdersController> logger,IMapper mapper)
         {
             _OrdersRepo = OrdersRepo;
             _logger = logger;
@@ -26,11 +26,11 @@ namespace DutchTreat.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Order>> Get()
+        public ActionResult<IEnumerable<Order>> Get(bool includeItems = true)
         {
             try
             {
-                var result = _OrdersRepo.List();
+                var result = _OrdersRepo.List(includeItems);
                 return Ok(_mapper.Map<IEnumerable<OrdersViewModel>>(result));
             }
             catch (Exception ex)

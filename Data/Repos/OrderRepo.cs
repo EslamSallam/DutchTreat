@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repos
 {
-    public class OrderRepo : IRepoDutch<Order>
+    public class OrderRepo : IRepoDutchOrders
     {
         private readonly DutchContext _ctx;
 
@@ -26,9 +26,21 @@ namespace DutchTreat.Data.Repos
             return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).Where(o => o.Id == id).FirstOrDefault();
         }
 
+        public List<Order> List(bool includeItems = true)
+        {
+            if (includeItems)
+            {
+                return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).ToList();
+            }
+            else
+            {
+                return _ctx.orders.ToList();
+            }
+        }
+
         public List<Order> List()
         {
-           return _ctx.orders.Include(o => o.Items).ThenInclude(i => i.Product).ToList();
+            return List();
         }
 
         public List<Order> ListFilter(Func<Order, bool> lambda)

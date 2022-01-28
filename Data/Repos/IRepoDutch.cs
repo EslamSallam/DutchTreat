@@ -9,7 +9,6 @@ namespace DutchTreat.Data.Repos
     public interface IRepoDutch<T>
     {
         public List<T> List();
-
         public List<T> ListFilter(Func<T, bool> lambda);
         public T GetElementById(int id);
         void AddEntity(T model);

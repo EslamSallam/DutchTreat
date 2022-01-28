@@ -30,7 +30,7 @@ namespace DutchTreat
             services.AddTransient<DutchSeeder>();
             services.AddTransient<IMailService, NullMailService>();
 
-            services.AddScoped<IRepoDutch<Order>, OrderRepo>();
+            services.AddScoped<IRepoDutchOrders, OrderRepo>();
             services.AddScoped<IRepoDutch<Product>, ProductRepo>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

@@ -15,8 +15,8 @@ namespace DutchTreat.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.22")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DutchTreat.Data.Entities.Order", b =>
@@ -119,15 +119,6 @@ namespace DutchTreat.Migrations
                     b.HasOne("DutchTreat.Data.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("DutchTreat.Data.Entities.Order", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

@@ -16,8 +16,16 @@ namespace DutchTreat.Data
         {
             _config = config;
         }
+
+        public DutchContext(DbContextOptionsBuilder<DutchContext> optionsBuilder)
+        {
+            OptionsBuilder = optionsBuilder;
+        }
+
         public DbSet<Product> products { get; set; }
         public DbSet<Order> orders { get; set; }
+        public DbContextOptionsBuilder<DutchContext> OptionsBuilder { get; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

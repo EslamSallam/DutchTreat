@@ -22,12 +22,7 @@ namespace DutchTreat
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DutchContext>(cfg =>
-            {
-                cfg.UseSqlServer();
-            });
-
-            services.AddTransient<DutchSeeder>();
+            services.AddDbContext<DutchContext>();
             services.AddTransient<IMailService, NullMailService>();
 
             services.AddScoped<IRepoDutchOrders, OrderRepo>();
